@@ -11,13 +11,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021170627) do
+ActiveRecord::Schema.define(version: 20131030121838) do
+
+  create_table "addresses", force: true do |t|
+    t.string   "first_line"
+    t.string   "city"
+    t.string   "postal_code"
+    t.string   "second_line"
+    t.string   "phone_number"
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "category"
+  end
+
+  create_table "delivery_men", force: true do |t|
+    t.string   "symbol"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "packages", force: true do |t|
+    t.integer  "category"
+    t.decimal  "charge_amount"
+    t.decimal  "insurance"
+    t.text     "info"
+    t.string   "token"
+    t.string   "status"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "delivery_man_first_id"
+    t.integer  "delivery_man_second_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "packages", ["delivery_man_first_id"], name: "index_packages_on_delivery_man_first_id"
+  add_index "packages", ["delivery_man_second_id"], name: "index_packages_on_delivery_man_second_id"
+  add_index "packages", ["receiver_id"], name: "index_packages_on_receiver_id"
+  add_index "packages", ["sender_id"], name: "index_packages_on_sender_id"
 
   create_table "users", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
+    t.string   "password_hash"
+    t.boolean  "registered"
+    t.string   "nip"
   end
 
 end
