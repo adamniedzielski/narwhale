@@ -17,8 +17,8 @@ describe Package do
     expect(package).to respond_to(:sender)
   end
 
-  it "belongs to sender" do
-    expect(package).to respond_to(:sender)
+  it "belongs to receiver" do
+    expect(package).to respond_to(:receiver)
   end
 
   it "belongs to delivery man first" do
