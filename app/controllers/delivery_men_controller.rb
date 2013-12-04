@@ -1,4 +1,7 @@
 class DeliveryMenController < ApplicationController
+
+  before_action :authenticate_admin_client
+
   # GET /delivery_men
   # GET /delivery_men.json
   def index

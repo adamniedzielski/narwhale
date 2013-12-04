@@ -19,5 +19,8 @@ module Narwhale
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    config.regular_key = "cac74dcf086e0ea3643c88d9b9dd2497"
+    config.admin_key = "6540a6797fe8fd85d24fa5be083360a8"
   end
 end

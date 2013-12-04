@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+
+  before_action :authenticate_regular_client
+  
+  # TODO: only for backend
   # GET /users
   # GET /users.json
   def index
@@ -15,6 +19,7 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  # TODO: registration request, should require address
   # POST /users
   # POST /users.json
   def create
@@ -39,6 +44,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # TODO: only for backend
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -46,5 +52,13 @@ class UsersController < ApplicationController
     @user.destroy
 
     head :no_content
+  end
+
+  # TODO
+  def authenticate
+  end
+
+  # TODO
+  def packages
   end
 end
