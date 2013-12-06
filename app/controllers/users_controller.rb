@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_regular_client
+  before_action :authenticate_regular_client,
+                :only => [:show, :create, :update, :authenticate, :packages]
+  before_action :authenticate_admin_client, :only => [:index, :destroy]
   
-  # TODO: only for backend
   # GET /users
   # GET /users.json
   def index
@@ -44,7 +45,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # TODO: only for backend
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy

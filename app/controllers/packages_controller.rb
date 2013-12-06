@@ -1,4 +1,8 @@
 class PackagesController < ApplicationController
+
+  before_action :authenticate_regular_client, :only => [:show, :create]
+  before_action :authenticate_admin_client, :only => [:index, :update, :delete]
+
   # GET /packages
   # GET /packages.json
   def index
@@ -15,6 +19,9 @@ class PackagesController < ApplicationController
     render json: @package
   end
 
+  # TODO: if the receiver is not found, create its record together with address
+  #       else copy receiver address to package
+  #       copy sender address to package
   # POST /packages
   # POST /packages.json
   def create
