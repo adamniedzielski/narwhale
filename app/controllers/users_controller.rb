@@ -20,11 +20,12 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  # TODO: registration request, should require address
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
+    @user.address = Address.new(address_params)
+    @user.registered = true
 
     if @user.save
       render json: @user, status: :created, location: @user
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update(update_params)
+    if @user.update(user_params)
       head :no_content
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -85,7 +86,15 @@ class UsersController < ApplicationController
              :status => 500
     end
 
-    def update_params
+    def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password, :nip)
+    end
+
+    def address_params
+      params.require(:address).permit(:first_line,
+                                      :second_line,
+                                      :city, 
+                                      :postal_code, 
+                                      :phone_number)
     end
 end

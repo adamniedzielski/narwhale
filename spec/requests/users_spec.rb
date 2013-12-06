@@ -62,4 +62,29 @@ describe "Users", :authenticate => true do
       expect(json["user_packages"]["received_packages"].first["id"]).to eq @received.id
     end
   end
+
+  describe "#create" do
+
+    let(:request) do
+      Proc.new do
+        post users_path,
+             :user => FactoryGirl.attributes_for(:user),
+             :address => FactoryGirl.attributes_for(:address)
+      end
+    end
+
+    it "creates new user" do
+      expect { request.call }.to change { User.count }.by(1)
+    end
+
+    it "assigns address to new user" do
+      request.call
+      expect(User.last.address).to be_present
+    end
+
+    it "marks new user as registered" do
+      request.call
+      expect(User.last.registered).to be_true
+    end
+  end
 end
