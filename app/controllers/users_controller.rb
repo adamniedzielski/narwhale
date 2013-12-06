@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update(params[:user])
+    if @user.update(update_params)
       head :no_content
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -83,5 +83,9 @@ class UsersController < ApplicationController
       render :json => 
              {:error => "Password invalid"}.to_json,
              :status => 500
+    end
+
+    def update_params
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :nip)
     end
 end
