@@ -2,7 +2,12 @@ Narwhale::Application.routes.draw do
   resources :delivery_men, except: [:new, :edit]
   resources :packages, except: [:new, :edit]
   resources :addresses, except: [:new, :edit]
-  resources :users, except: [:new, :edit]
+
+  resources :users, except: [:new, :edit] do
+    collection do
+      post :authenticate
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

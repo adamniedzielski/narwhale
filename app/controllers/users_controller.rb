@@ -54,11 +54,32 @@ class UsersController < ApplicationController
     head :no_content
   end
 
-  # TODO
   def authenticate
+    @user = User.find_by(:email => params[:email])
+    return email_not_found if @user.blank?
+
+    if @user.password == params[:password]
+      render :json => @user
+    else
+      password_invalid
+    end
   end
 
   # TODO
   def packages
   end
+
+  private
+
+    def email_not_found
+      render :json => 
+             {:error => "Email not found"}.to_json,
+             :status => 500
+    end
+
+    def password_invalid
+      render :json => 
+             {:error => "Password invalid"}.to_json,
+             :status => 500
+    end
 end
