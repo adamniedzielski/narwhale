@@ -44,4 +44,22 @@ describe "Users", :authenticate => true do
       end
     end
   end
+
+  describe "#packages" do
+
+    before do
+      @user = FactoryGirl.build(:user)
+      @sent = FactoryGirl.build(:package)
+      @user.sent_packages << @sent
+      @received = FactoryGirl.build(:package)
+      @user.received_packages << @received
+      @user.save!
+    end
+
+    it "returns sent and received packages for user" do
+      get packages_user_path(@user)
+      expect(json["user_packages"]["sent_packages"].first["id"]).to eq @sent.id
+      expect(json["user_packages"]["received_packages"].first["id"]).to eq @received.id
+    end
+  end
 end

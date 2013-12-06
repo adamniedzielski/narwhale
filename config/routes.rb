@@ -4,8 +4,13 @@ Narwhale::Application.routes.draw do
   resources :addresses, except: [:new, :edit]
 
   resources :users, except: [:new, :edit] do
+    
     collection do
       post :authenticate
+    end
+
+    member do
+      get :packages
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

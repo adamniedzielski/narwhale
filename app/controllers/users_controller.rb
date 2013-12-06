@@ -65,8 +65,10 @@ class UsersController < ApplicationController
     end
   end
 
-  # TODO
   def packages
+    @user = User.includes(:sent_packages, :received_packages).find(params[:id])
+
+    render :json => @user, :serializer => UserPackagesSerializer
   end
 
   private
