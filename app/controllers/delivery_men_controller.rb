@@ -7,7 +7,7 @@ class DeliveryMenController < ApplicationController
   def index
     @delivery_men = DeliveryMan.all
 
-    render json: @delivery_men
+    render json: @delivery_men, :each_serializer => ShortDeliveryManSerializer
   end
 
   # GET /delivery_men/1
@@ -21,7 +21,7 @@ class DeliveryMenController < ApplicationController
   # POST /delivery_men
   # POST /delivery_men.json
   def create
-    @delivery_man = DeliveryMan.new(params[:delivery_man])
+    @delivery_man = DeliveryMan.new(delivery_man_params)
 
     if @delivery_man.save
       render json: @delivery_man, status: :created, location: @delivery_man
@@ -35,7 +35,7 @@ class DeliveryMenController < ApplicationController
   def update
     @delivery_man = DeliveryMan.find(params[:id])
 
-    if @delivery_man.update(params[:delivery_man])
+    if @delivery_man.update(delivery_man_params)
       head :no_content
     else
       render json: @delivery_man.errors, status: :unprocessable_entity
@@ -50,4 +50,10 @@ class DeliveryMenController < ApplicationController
 
     head :no_content
   end
+
+  private
+
+    def delivery_man_params
+      params.require(:delivery_man).permit(:symbol)
+    end
 end
