@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include AddressParams
 
   before_action :authenticate_regular_client,
                 :only => [:show, :create, :update, :authenticate, :packages]
@@ -88,13 +89,5 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password, :nip)
-    end
-
-    def address_params
-      params.require(:address).permit(:first_line,
-                                      :second_line,
-                                      :city, 
-                                      :postal_code, 
-                                      :phone_number)
     end
 end
