@@ -13,6 +13,11 @@ Narwhale::Application.routes.draw do
       get :packages
     end
   end
+
+
+  #this should be the last route
+  match '*unmatched_route', :to => 'application#raise_not_found!', :via => :all
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
