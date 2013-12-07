@@ -1,6 +1,6 @@
 class PackagesController < ApplicationController
 
-  before_action :authenticate_regular_client, :only => [:show, :create]
+  before_action :authenticate_regular_client, :only => [:show, :create, :find_by_token]
   before_action :authenticate_admin_client, :only => [:index, :update, :delete]
 
   # GET /packages
@@ -8,7 +8,7 @@ class PackagesController < ApplicationController
   def index
     @packages = Package.all
 
-    render json: @packages
+    render json: @packages, :each_serializer => ShortPackageSerializer
   end
 
   # GET /packages/1
@@ -19,13 +19,16 @@ class PackagesController < ApplicationController
     render json: @package
   end
 
-  # TODO: if the receiver is not found, create its record together with address
-  #       else copy receiver address to package
-  #       copy sender address to package
+  def find_by_token
+    @package = Package.find_by!(:token => params[:token])
+
+    render json: @package
+  end
+
   # POST /packages
   # POST /packages.json
   def create
-    @package = Package.new(params[:package])
+    @package = PackageService.create_package(params)
 
     if @package.save
       render json: @package, status: :created, location: @package
@@ -39,7 +42,7 @@ class PackagesController < ApplicationController
   def update
     @package = Package.find(params[:id])
 
-    if @package.update(params[:package])
+    if @package.update(package_params)
       head :no_content
     else
       render json: @package.errors, status: :unprocessable_entity
@@ -54,4 +57,10 @@ class PackagesController < ApplicationController
 
     head :no_content
   end
+
+  private
+
+    def package_params
+      params.require(:package).permit(:category, :charge_amount, :insurance, :info, :status)
+    end
 end

@@ -22,5 +22,9 @@ module Narwhale
 
     config.regular_key = "cac74dcf086e0ea3643c88d9b9dd2497"
     config.admin_key = "6540a6797fe8fd85d24fa5be083360a8"
+
+    config.after_initialize do |app|
+      app.config.paths.add 'app/services', :eager_load => true
+    end
   end
 end

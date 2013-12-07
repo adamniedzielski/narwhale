@@ -1,6 +1,13 @@
 Narwhale::Application.routes.draw do
   resources :delivery_men, except: [:new, :edit]
-  resources :packages, except: [:new, :edit]
+
+  resources :packages, except: [:new, :edit] do
+
+    collection do
+      get :find_by_token
+    end
+  end
+
   resources :addresses, except: [:new, :edit]
 
   resources :users, except: [:new, :edit] do

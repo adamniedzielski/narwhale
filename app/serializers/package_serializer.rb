@@ -1,7 +1,8 @@
-class PackageSerializer < ActiveModel::Serializer
-  attributes :id, :category, :charge_amount, :insurance, :info, :token, :status
-  has_one :sender
-  has_one :receiver
-  has_one :delivery_man_first
-  has_one :delivery_man_second
+class PackageSerializer < ShortPackageSerializer
+  has_one :sender, :serializer => ShortUserSerializer
+  has_one :receiver, :serializer => ShortUserSerializer
+  has_one :delivery_man_first, :serializer => ShortDeliveryManSerializer
+  has_one :delivery_man_second, :serializer => ShortDeliveryManSerializer
+  has_one :sender_address
+  has_one :receiver_address
 end

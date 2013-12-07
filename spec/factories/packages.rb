@@ -8,9 +8,5 @@ FactoryGirl.define do
     info "MyText"
     token "MyString"
     status "MyString"
-    sender nil
-    receiver nil
-    delivery_man_first nil
-    delivery_man_second nil
   end
 end
