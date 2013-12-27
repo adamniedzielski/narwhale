@@ -61,6 +61,8 @@ class PackagesController < ApplicationController
   private
 
     def package_params
-      params.require(:package).permit(:category, :charge_amount, :insurance, :info, :status)
+      params.require(:package).permit(:category, :charge_amount, :insurance,
+                                      :info, :status, :delivery_man_first_id,
+                                      :delivery_man_second_id)
     end
 end

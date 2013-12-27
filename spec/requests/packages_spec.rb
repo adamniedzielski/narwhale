@@ -81,4 +81,17 @@ describe "Packages", :authenticate => true do
     end
 
   end
+
+  describe "#update" do
+
+    before do
+      @package = FactoryGirl.create(:package)
+      @delivery_man = FactoryGirl.create(:delivery_man)
+    end
+
+    it "assigns delivery man to package" do
+      patch package_path(@package), :package => { :delivery_man_first_id => @delivery_man.id }
+      expect(@package.reload.delivery_man_first.id).to eq @delivery_man.id
+    end
+  end
 end
