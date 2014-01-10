@@ -8,4 +8,8 @@ class Package < ActiveRecord::Base
           :class_name => 'Address', :as => :addressable
   has_one :receiver_address, -> { where :category => 'receiver' },
           :class_name => 'Address', :as => :addressable
+
+  validates_presence_of :sender, :receiver, :sender_address, :receiver_address,
+                        :category, :token, :status
+  validates_numericality_of :charge_amount, :insurance
 end

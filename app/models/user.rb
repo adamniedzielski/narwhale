@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :sent_packages, :class_name => 'Package', :foreign_key => 'sender_id'
   has_many :received_packages, :class_name => 'Package', :foreign_key => 'receiver_id'
 
+  validates_presence_of :first_name, :last_name, :email
+  validate :email, :uniqueness => true
+
   def password
     @password ||= Password.new(password_hash)
   end

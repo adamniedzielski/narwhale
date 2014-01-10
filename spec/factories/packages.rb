@@ -8,5 +8,13 @@ FactoryGirl.define do
     info "MyText"
     token "MyString"
     status "MyString"
+
+    association :sender, :factory => :user
+    association :receiver, :factory => :user
+    
+    after(:build) do |package|
+      package.create_sender_address(FactoryGirl.attributes_for(:address))
+      package.create_receiver_address(FactoryGirl.attributes_for(:address))
+    end
   end
 end
