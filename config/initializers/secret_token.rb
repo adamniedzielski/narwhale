@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Narwhale::Application.config.secret_key_base = '2d983b3bbbb89abc245909e05c7b893554a96cede1eeac390c1659d4375bc79e12726165eafc0b69d39aef512e29d01aade6defc4da43c88515482114e898862'
+Narwhale::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
